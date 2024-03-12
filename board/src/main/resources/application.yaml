@@ -1,0 +1,25 @@
+debug: false
+management.endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    com.example.board: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      format_sql: true
+      dialect: org.hibernate.dialect.MySQL57Dialect
+      hibernate.default_batch_fetch_size: 100
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://192.168.0.100:3306/board?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ldy
+    password: super1234@
+  h2.console.enabled: true
+  sql.init.mode: always
