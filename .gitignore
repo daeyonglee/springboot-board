@@ -1,0 +1,12 @@
+
+board/wrapper/
+
+board/native/
+
+board/jdks/
+
+board/daemon/
+
+board/caches/
+
+.idea/
