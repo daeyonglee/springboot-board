@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -20,6 +23,7 @@ import java.util.Objects;
 		@Index(columnList = "createdAt"),
 		@Index(columnList = "createdBy")
 })
+@Entity
 public class Article {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +33,15 @@ public class Article {
 	@Column(nullable = false)
 	private String title;
 	@Setter
-	@Column(nullable = false, length = 10000)
+	@Column(nullable = false, length = 1000)
 	private String content;
 	@Setter
 	private String hashtag;
+
+	@ToString.Exclude
+	@OrderBy("id")
+	@OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+	private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 	@CreatedDate
 	@Column(nullable = false)
