@@ -1,13 +1,17 @@
 package com.example.board.repository;
 
 import com.example.board.config.JpaConfig;
+import com.example.board.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @DisplayName("JPA 연결 테스트")
 @Import(JpaConfig.class)
@@ -26,6 +30,12 @@ class JpaRepositoryTest {
 
     @Test
     void givenTestData_whenSelecting_thenWorksFine() {
-        
+        // Given
+
+        // When
+        List<Article> articles =  articleRepository.findAll();
+
+        // Then
+        assertThat(articles).isNotNull().hasSize(123);
     }
 }

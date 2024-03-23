@@ -34,10 +34,10 @@ public class ArticleComment {
 	private String createdBy;
 	@LastModifiedDate
 	@Column(nullable = false)
-	private LocalDateTime updatedAt;
+	private LocalDateTime modifiedAt;
 	@LastModifiedBy
 	@Column(nullable = false, length = 100)
-	private String updatedBy;
+	private String modifiedBy;
 
 	protected ArticleComment() {
 	}
