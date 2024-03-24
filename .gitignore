@@ -10,3 +10,5 @@ board/daemon/
 board/caches/
 
 .idea/
+
+board/.tmp/

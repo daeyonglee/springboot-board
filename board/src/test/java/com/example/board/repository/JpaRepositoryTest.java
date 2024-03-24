@@ -28,14 +28,61 @@ class JpaRepositoryTest {
         this.articleCommentRepository = articleCommentRepository;
     }
 
+    @DisplayName("select 테스트")
     @Test
     void givenTestData_whenSelecting_thenWorksFine() {
         // Given
 
         // When
-        List<Article> articles =  articleRepository.findAll();
+        List<Article> articles = articleRepository.findAll();
 
         // Then
         assertThat(articles).isNotNull().hasSize(123);
+    }
+
+    @DisplayName("insert 태스트")
+    @Test
+    void givenTestData_whenInserting_thenWorksFine() {
+        // Given
+        long previousCount = articleRepository.count();
+
+        // When
+        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
+
+        // Then
+        assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
+    }
+
+    @DisplayName("update 테스트")
+    @Test
+    void givenTestData_whenUpdating_thenWorksFine() {
+        // Given
+        Article article = articleRepository.findById(1L).orElseThrow();
+        String updatedHashtag = "#springboot";
+        article.setHashtag(updatedHashtag);
+
+        // When
+        Article savedArticle = articleRepository.save(article);
+        articleRepository.flush(); // 각 Slicing한 Test는 트랜잭션 후 rollback을 하기때문에, 실제로 변경된 것 없는 것처럼 동작하므로 flush를 통해 강제로 실행시킴
+
+        // Then
+        assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
+    }
+
+    @DisplayName("update 테스트")
+    @Test
+    void givenTestData_whenDeleting_thenWorksFine() {
+        // Given
+        Article article = articleRepository.findById(1L).orElseThrow();
+        long previousArticleCount = articleRepository.count();
+        long previousArticleCommentCount = articleCommentRepository.count();
+        int deletedCommentsSize = article.getArticleComments().size();
+
+        // When
+        articleRepository.delete(article);
+
+        // Then
+        assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
     }
 }
