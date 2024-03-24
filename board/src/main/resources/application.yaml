@@ -25,5 +25,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ldy
     password: super1234@
-  h2.console.enabled: true
   sql.init.mode: always
