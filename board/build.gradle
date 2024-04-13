@@ -34,6 +34,9 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// ThymeLeaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 	// queryDSL 설정
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	implementation "com.querydsl:querydsl-core"
