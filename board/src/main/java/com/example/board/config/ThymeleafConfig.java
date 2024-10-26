@@ -25,6 +25,8 @@ public class ThymeleafConfig {
 
 
     @ConfigurationProperties("spring.thymeleaf3")
-    public record Thymeleaf3Properties(boolean decoupledLogic) {}
+    public record Thymeleaf3Properties(boolean decoupledLogic) {
+
+    }
 
 }
